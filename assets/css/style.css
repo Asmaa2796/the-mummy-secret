@@ -204,6 +204,7 @@ footer .social a:hover {background-color: var(--sub-color);color: #fff;}
 h2 {font-size: 29px;}
 .social {margin: 20px 0;}
 .navbar .navbar-brand img {
-  width: 145px;
+          width: 35px;
+        margin: 0 20px;
 }
 }
