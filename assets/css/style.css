@@ -196,8 +196,7 @@ footer .social a:hover {background-color: var(--sub-color);color: #fff;}
 .terms .term_card {transition: all .3s ease-in-out;height: 95%;}
 @media(width <= 820px) {
   .navbar .contact_us {
-    margin-top: 4px;
-    margin-right: 40px;
+    margin-block: 10px;
     display: inline-block;
   }
   
@@ -207,4 +206,9 @@ h2 {font-size: 29px;}
           width: 35px;
         margin: 0 20px;
 }
+}
+/* dir rtl */
+[dir='rtl'] {
+  body {text-align: right;direction: rtl;}
+  .dropdown-item {text-align: right;}
 }

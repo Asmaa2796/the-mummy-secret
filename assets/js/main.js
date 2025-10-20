@@ -34,27 +34,40 @@ $(function () {
     });
 });
 
-  // Smooth scroll when already on index.html
   document.querySelectorAll('a[data-scroll]').forEach(link => {
-    link.addEventListener('click', function (e) {
-      const sectionId = this.getAttribute('data-scroll');
+  link.addEventListener('click', function (e) {
+    const sectionId = this.getAttribute('data-scroll');
+    const navbarCollapse = $('#navbarSupportedContent'); // jQuery element
+    const navbarToggler = document.querySelector('.navbar-toggler');
+    const offset = 80; // adjust based on navbar height
 
-      // If already on index.html
-      if (window.location.pathname.endsWith('index.html') || window.location.pathname === '/' ) {
-        e.preventDefault();
-        const section = document.getElementById(sectionId);
-        if (section) {
-          section.scrollIntoView({ behavior: 'smooth' });
+    // If already on index.html
+    if (window.location.pathname.endsWith('index.html') || window.location.pathname === '/') {
+      e.preventDefault();
+      const section = document.getElementById(sectionId);
+      if (section) {
+        const elementTop = section.getBoundingClientRect().top + window.pageYOffset - offset;
+        window.scrollTo({ top: elementTop, behavior: 'smooth' });
+
+        // ✅ Close navbar in mobile view after scroll
+        if (window.innerWidth < 992) {
+          setTimeout(() => {
+            if (navbarCollapse.hasClass('show')) {
+              navbarCollapse.collapse('hide');
+            } else if (navbarToggler && navbarToggler.offsetParent !== null) {
+              navbarToggler.click();
+            }
+          }, 600); // wait for scroll animation
         }
-      } else {
-        // If on another page — navigate to index.html with hash
-        e.preventDefault();
-        window.location.href = `index.html#${sectionId}`;
       }
-    });
+    } else {
+      // If on another page — navigate to index.html with hash
+      e.preventDefault();
+      window.location.href = `index.html#${sectionId}`;
+    }
   });
+});
 
-  // When navigating from another page — scroll after load
   window.addEventListener('load', () => {
     if (window.location.hash) {
       const section = document.querySelector(window.location.hash);
